@@ -1,191 +1,111 @@
-# AI Workplace Companion
+# AI-Productivity-Assistant
 
-Build a modern, responsive web application called AI Workplace Productivity Assistant (AI-Productivity-Assistant) that helps professionals automate workplace tasks using AI. The application must feature a high-end, clean, modern, and professional SaaS dashboard aesthetic using React, Tailwind CSS, Lucide React icons, and Shadcn UI components.
+**AI Workplace Productivity Assistant** — a modern, responsive web application that helps professionals automate repetitive workplace tasks with AI-assisted drafting, summarizing, planning and research.
 
+## Project Overview
 
+Knowledge workers lose hours every week to the same handful of chores: writing routine emails, turning messy meeting notes into action items, re-ordering a task list into a realistic day, and skimming articles for the two facts that matter. AI-Productivity-Assistant collapses those chores into five focused tools inside one dashboard.
 
+Every tool follows the same principle: the AI produces a first draft, and the human stays accountable for what ships. Outputs are always editable, missing information appears as explicit `[placeholders]` rather than invented detail, the underlying prompt is visible for every tool, and a Responsible AI disclaimer is present on every screen.
 
-Ensure the prompt structures and UI components specifically hit all evaluation rubrics: Problem Relevance, Prompt Engineering Quality, Functionality, Innovation, Responsible AI Practices, and Presentation Quality.
+## Features
 
+### Dashboard layout
+- Collapsible sidebar navigation (drawer on mobile, collapse toggle on desktop).
+- Header with project branding, global search and the active tool title.
+- Persistent Responsible AI disclaimer footer: *"AI-generated outputs are produced using automated algorithms. Please review, edit, and verify all content before sending or implementing."*
 
+### 1. Smart Email Generator
+Context/bullet-point input, tone selection (Formal, Friendly, Persuasive), recipient and subject fields, and a custom prompt settings toggle for length and call-to-action type. Output is an editable subject line and body with one-click **Copy to Clipboard** and **Regenerate**.
 
+### 2. Meeting Notes Summarizer
+Paste a raw transcript or shorthand notes. Results appear in a tabbed view: Executive Summary, Action Items (checkbox list with owners and due dates), Key Decisions, and Deadlines & Milestones.
 
-1. Dashboard Architecture & Navigation
+### 3. AI Task Planner / Scheduler
+Unstructured task list input, Daily Schedule vs Weekly Plan selector, and a working-hours range picker. Output is a prioritised schedule with explicit High / Medium / Low indicators derived from urgency-and-impact logic, rendered as editable time-block cards with a stated rationale per item.
 
-Layout Structure:
+### 4. AI Research Assistant
+Accepts article text, a URL reference or a research question. Produces bulleted key takeaways, an insights-and-recommendation card with a confidence rating, an explicit "verify before you use this" checklist, and an editable summary container.
 
+### 5. AI Chatbot Interface
+Interactive chat stream with prompt history, pre-built prompt starters ("Review this draft for clarity", "Suggest 3 icebreakers for a client kickoff"), editable assistant responses, and copy / regenerate / clear actions per message.
 
+### Prompt engineering
+Each tool builds a structured prompt template with an explicit **Role**, **Task**, **Context** (user input, clearly delimited), **Constraints** (shared responsible-AI guardrails plus tool-specific boundaries) and an **Output format** contract. Templates live in `src/lib/prompts.ts` and are inspectable in the UI via the "View prompt" panel on every tool.
 
+### Simulated AI logic
+`src/lib/mock-ai.ts` contains deterministic, input-aware response generators so every tool works out of the box in the preview with no API key or network call. Swapping in a real model means replacing these generator functions with a server call that sends the same prompt templates.
 
-Sidebar navigation with a collapsible toggle for mobile and desktop views.
+## Tools & Technologies Used
 
-Header with project branding, search bar, and active tool title.
+| Area | Technology |
+| --- | --- |
+| Framework | React 19 + TanStack Start / TanStack Router |
+| Build tool | Vite |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 (CSS-first design tokens in `src/styles.css`) |
+| UI components | shadcn/ui (Radix primitives) |
+| Icons | Lucide React |
+| Notifications | Sonner |
+| Data layer | TanStack Query |
 
-Footer/Banner with a prominent Responsible AI Disclaimer: "Disclaimer: AI-generated outputs are produced using automated algorithms. Please review, edit, and verify all content before sending or implementing."
+## Setup Instructions
 
-Sidebar Menu Navigation:
+```bash
+# 1. Clone the repository
+git clone <your-repository-url>
+cd AI-Productivity-Assistant
 
+# 2. Install dependencies
+npm install
 
-
-
-Dashboard Overview
-
-Smart Email Generator
-
-Meeting Notes Summarizer
-
-AI Task Planner / Scheduler
-
-AI Research Assistant
-
-AI Chatbot Interface
-
-2. Detailed Core Feature Implementation
-
-A. Smart Email Generator (Problem Relevance & Functionality)
-
-Input UI:
-
-
-
-
-Context / Bullet points text area.
-
-Tone selection dropdown (Formal, Friendly, Persuasive).
-
-Recipient / Subject input fields.
-
-Custom prompt settings toggle (e.g., length, call-to-action type).
-
-Output UI:
-
-
-
-
-Editable text area with AI-generated email subject and body.
-
-One-click "Copy to Clipboard" and "Regenerate" buttons.
-
-B. Meeting Notes Summarizer (Functionality & Innovation)
-
-Input UI: Text area to paste raw meeting notes or transcripts.
-
-Output UI: Structured tabbed view or categorized card layout containing:
-
-
-
-
-Executive Summary
-
-Extracted Action Items (with checkbox lists and assigned dates)
-
-Key Decisions Made
-
-Deadlines & Milestones
-
-C. AI Task Planner / Scheduler (Prompt Engineering & Innovation)
-
-Input UI:
-
-
-
-
-Unstructured task list input.
-
-Timeframe selector (Daily Schedule vs. Weekly Plan).
-
-Working hours range picker.
-
-Output UI:
-
-
-
-
-Prioritized task schedule with explicit priority indicators (High, Medium, Low based on urgency/impact logic).
-
-Drag-to-edit or editable schedule cards with time blocks.
-
-D. AI Research Assistant (Presentation Quality & Relevance)
-
-Input UI: Article text, URL reference, or research topic query field.
-
-Output UI:
-
-
-
-
-Bulleted key takeaways.
-
-AI-generated insights and recommendations card.
-
-Editable summary text container.
-
-E. AI Chatbot Interface (Functionality & Presentation)
-
-Chat UI:
-
-
-
-
-Interactive chat stream supporting prompt history.
-
-Pre-built prompt starters (e.g., "Review this draft for clarity", "Suggest 3 icebreakers for a client kickoff").
-
-Editable chat message responses and clear response action buttons.
-
-3. Prompt Engineering Quality & Simulated AI Logic
-
-Build structured client-side prompt templates for each tool with specific role definitions, task boundaries, context formatting, and explicit output constraints.
-
-Integrate simulated/mock AI response generators using structured mock data so every tool works out-of-the-box in the preview UI.
-
-4. Repository Documentation File (README.md)
-
-Include a generated README.md file within the code repository containing:
-
-
-
-
-Project Name: AI-Productivity-Assistant
-
-Project Overview: Brief description addressing how the tool solves modern workplace inefficiency through AI-driven task automation.
-
-Features: Detailed breakdown of the 5 key tools and dashboard layout.
-
-Tools & Technologies Used: Frameworks, styling libraries, and UI components used.
-
-Setup Instructions: Step-by-step terminal commands for local installation and execution.
-
-Team Members:
-
-
-
-
-Siyambonga Fulani
-
-Onele Kalipa
-
-Thuliswa Ntame
-
-Sisipho Majwede
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/fc093071-39a5-45ed-ab17-c9868908b33e).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+# 3. Start the development server
 npm run dev
+
+# 4. Open the app
+#    http://localhost:8080
+
+# 5. Create a production build
+npm run build
+
+# 6. Preview the production build locally
+npm run preview
 ```
+
+## Project Structure
+
+```
+src/
+  components/
+    AppShell.tsx        # sidebar, header, disclaimer footer
+    PromptInspector.tsx # "View prompt" panel
+    ToolIntro.tsx       # shared panel / field primitives
+    ui/                 # shadcn/ui components
+  lib/
+    prompts.ts          # structured prompt templates
+    mock-ai.ts          # simulated AI response generators
+  routes/
+    index.tsx           # Dashboard Overview
+    email.tsx           # Smart Email Generator
+    meetings.tsx        # Meeting Notes Summarizer
+    planner.tsx         # AI Task Planner / Scheduler
+    research.tsx        # AI Research Assistant
+    chat.tsx            # AI Chatbot Interface
+  styles.css            # design tokens and theme
+```
+
+## Responsible AI Practices
+
+- A disclaimer is visible on every screen, not buried in settings.
+- All AI output is editable before it can be copied or acted on.
+- Prompts instruct the model never to invent names, figures or dates; gaps are marked `[placeholder]`.
+- The research tool separates source claims from model inference and lists what must be verified.
+- The chatbot declines impersonation and misleading-content requests by prompt design.
+- The full prompt behind each output is visible to the user.
+
+## Team Members
+
+- Siyambonga Fulani
+- Onele Kalipa
+- Thuliswa Ntame
+- Sisipho Majwede
